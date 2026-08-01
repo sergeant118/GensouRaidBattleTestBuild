@@ -1,43 +1,43 @@
 name: Deploy WebGL to GitHub Pages
 
-  on:
-    push:
-      branches: [main]
-    workflow_dispatch:
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-  permissions:
-    contents: read
-    pages: write
-    id-token: write
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-  jobs:
-    deploy:
-      environment:
-        name: github-pages
+jobs:
+  deploy:
+    environment:
+      name: github-pages
 
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-          with:
-            lfs: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
 
-        - name: Restore LFS files
-          run: |
-            git lfs install
-            git lfs pull
-            git lfs checkout
-            test -s Build/GensouRaidBattleTestBuild_WebGL.wasm
-            test -s Build/GensouRaidBattleTestBuild_WebGL.data
+      - name: Restore LFS files
+        run: |
+          git lfs install
+          git lfs pull
+          git lfs checkout
+          test -s Build/GensouRaidBattleTestBuild_WebGL.wasm
+          test -s Build/GensouRaidBattleTestBuild_WebGL.data
 
-        - name: Setup Pages
-          uses: actions/configure-pages@v5
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-        - name: Upload Pages artifact
-          uses: actions/upload-pages-artifact@v4
-          with:
-            path: .
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
 
-        - name: Deploy to GitHub Pages
-          uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
